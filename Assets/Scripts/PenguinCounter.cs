@@ -14,6 +14,6 @@ public class PenguinCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Penguins = GameObject.FindGameObjectsWithTag("Penguins").Length;
+        Penguins = GameObject.FindGameObjectsWithTag("Penguin").Length;
     }
 }
