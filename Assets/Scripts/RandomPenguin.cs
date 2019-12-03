@@ -39,37 +39,43 @@ public class RandomPenguin : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //Walking animation triggered while moving
-        if(Moving){
+        if(Distance < 15){
+            //Making penguin runs away
+            gameObject.transform.rotation = Player.transform.rotation;
+            gameObject.transform.position += gameObject.transform.forward / 15;
             Animator.SetInteger("Walk", 1);
         }
         else{
-            Animator.SetInteger("Walk", 0);
-        }
-        
-        counter += 1;
-        if(counter >= Cycle){
-            Moving = true;
-
-            //Face random direction, only do this once per movement
-            if(counter == Cycle){
-                gameObject.transform.Rotate(new Vector3(0, rand.Next(0, 360),0), Space.World);
+            //Walking animation triggered while moving
+            if(Moving){
+                Animator.SetInteger("Walk", 1);
             }
+            else{
+                Animator.SetInteger("Walk", 0);
+            }
+            counter += 1;
+            if(counter >= Cycle){
+                Moving = true;
+
+                //Face random direction, only do this once per movement
+                if(counter == Cycle){
+                    gameObject.transform.Rotate(new Vector3(0, rand.Next(0, 360),0), Space.World);
+                }
             
-            //Move a little each update given the random direction
-            gameObject.transform.position += gameObject.transform.forward / 25;
+                //Move a little each update given the random direction
+                gameObject.transform.position += gameObject.transform.forward / 25;
             
-            //gameObject.transform.Translate(Direction, Space.World);
+                //gameObject.transform.Translate(Direction, Space.World);
 
-        }
-        else{
-            Moving = false;
-        }
+            }
+            else{
+                Moving = false;
+            }
 
-        if(counter == 2 * Cycle){
-            counter = 0;
+            if(counter == 2 * Cycle){
+                counter = 0;
+            }
         }
-
     }
 
     void Update(){
