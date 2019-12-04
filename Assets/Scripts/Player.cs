@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     public void KilledPenguin(){
         KilledPenguins += 1;
         Money += 200;
+        Karma -= 100;
+        KarmaObject.GetComponent<Text>().text = "Karma: " + Karma;
         MoneyObject.GetComponent<Text>().text = "$" + Money;
     }
 
