@@ -9,10 +9,11 @@ public class Intro : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Image.GetComponent<Animator>().Play("FadeIn");
+        StartCoroutine("SceneChange");
     }
     IEnumerator SceneChange()
     {
+        Image.GetComponent<Animator>().Play("FadeIn");
         yield return new WaitForSeconds(3.0f);
         Image.GetComponent<Animator>().Play("FadeOut");
         yield return new WaitForSeconds(3.0f);
