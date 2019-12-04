@@ -110,8 +110,8 @@ public class RandomPenguin : MonoBehaviour
             CommandKey.GetComponent<Text>().text = "[E]";
             CommandKey.SetActive(true);
             Command.SetActive(true);
-            //Jeff.SetActive(true);
-            //Bezos.SetActive(true);
+            Jeff.SetActive(true);
+            Bezos.SetActive(true);
             if(Input.GetButtonDown("Action") ){
                 Destroy(gameObject);
                 CommandKey.SetActive(false);
@@ -121,14 +121,14 @@ public class RandomPenguin : MonoBehaviour
                 Player.SendMessage("SavedPenguin", SendMessageOptions.DontRequireReceiver);
                 //Probably add something here the decreases the meter
             }//Else kicks the penguin and makes you money
-            /*else if(Input.GetButtonDown("JeffBezos")){
+            else if(Input.GetButtonDown("JeffBezos")){
                 CommandKey.SetActive(false);
                 Command.SetActive(false);
                 Jeff.SetActive(false);
                 Bezos.SetActive(false);
                 BezosTime = true;
                 Player.SendMessage("KilledPenguin", SendMessageOptions.DontRequireReceiver);
-            }*/
+            }
         }
         else{
             CommandKey.SetActive(false);

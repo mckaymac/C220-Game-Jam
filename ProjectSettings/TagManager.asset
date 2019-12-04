@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Penguin
+  - Fire
+  - Ground
   layers:
   - Default
   - TransparentFX
