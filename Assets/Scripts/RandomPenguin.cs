@@ -17,6 +17,8 @@ public class RandomPenguin : MonoBehaviour
     public float Distance;
     public GameObject CommandKey;
     public GameObject Command;
+    public GameObject Jeff;
+    public GameObject Bezos;
 
     //Used to trigger animations for the pengiun
     private Animator Animator;
@@ -25,6 +27,9 @@ public class RandomPenguin : MonoBehaviour
     //Stuff for penguin physics
     public float movementSpeed = 3;
     private bool Moving = false;
+
+    //For kicking penguin
+    private bool BezosTime = false;
     
    
 
@@ -64,8 +69,6 @@ public class RandomPenguin : MonoBehaviour
             
                 //Move a little each update given the random direction
                 gameObject.transform.position += gameObject.transform.forward / 25;
-            
-                //gameObject.transform.Translate(Direction, Space.World);
 
             }
             else{
@@ -83,27 +86,63 @@ public class RandomPenguin : MonoBehaviour
         var xDiff = gameObject.transform.position.x - Player.transform.position.x;
         var zDiff = gameObject.transform.position.z - Player.transform.position.z;
         Distance = Mathf.Pow(Mathf.Pow(xDiff, 2) + Mathf.Pow(zDiff, 2), (float) 0.5);
+
+        //Kicks penguin, gives player money
+        if(BezosTime){
+            //Kicks the penguin
+            gameObject.transform.position += Player.transform.forward;
+            gameObject.transform.position += gameObject.transform.up;
+            StartCoroutine("Kick");
+        }  
+    }
+
+    IEnumerator Kick(){
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
     }
 
 
     void OnMouseOver(){
         //When within 2 units, show door instructions and allow them to teleport
-        if(Distance < 4){
+        if(Distance < 5){
+            Debug.Log("Within Range");
             //Showing the texts on canvas and changes the text
             Command.GetComponent<Text>().text = "Rescue Penguin";
             CommandKey.GetComponent<Text>().text = "[E]";
             CommandKey.SetActive(true);
             Command.SetActive(true);
+            //Jeff.SetActive(true);
+            //Bezos.SetActive(true);
             if(Input.GetButtonDown("Action") ){
                 Destroy(gameObject);
                 CommandKey.SetActive(false);
                 Command.SetActive(false);
+                Jeff.SetActive(false);
+                Bezos.SetActive(false);
+                Player.SendMessage("SavedPenguin", SendMessageOptions.DontRequireReceiver);
                 //Probably add something here the decreases the meter
-            }
+            }//Else kicks the penguin and makes you money
+            /*else if(Input.GetButtonDown("JeffBezos")){
+                CommandKey.SetActive(false);
+                Command.SetActive(false);
+                Jeff.SetActive(false);
+                Bezos.SetActive(false);
+                BezosTime = true;
+                Player.SendMessage("KilledPenguin", SendMessageOptions.DontRequireReceiver);
+            }*/
         }
         else{
             CommandKey.SetActive(false);
             Command.SetActive(false);
+            Jeff.SetActive(false);
+            Bezos.SetActive(false);
         }    
+    }
+
+    void OnMouseExit(){
+        CommandKey.SetActive(false);
+        Command.SetActive(false);
+        Jeff.SetActive(false);
+        Bezos.SetActive(false);
     }
 }

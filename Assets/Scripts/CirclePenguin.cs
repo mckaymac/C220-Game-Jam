@@ -9,6 +9,9 @@ public class CirclePenguin : MonoBehaviour
     public float Distance;
     public GameObject CommandKey;
     public GameObject Command;
+    public GameObject Jeff;
+    public GameObject Bezos;
+    private bool BezosTime = false;
 
     //Used to trigger animations for the pengiun
     private Animator Animator;
@@ -25,12 +28,25 @@ public class CirclePenguin : MonoBehaviour
     // In this section, the direction should slowly rotate and move the penguin forward
     void FixedUpdate()
     {
-        //Rotate a little bit
-        gameObject.transform.Rotate(new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 5, gameObject.transform.rotation.z), Space.World);
+        if(BezosTime){
+            //Kicks the penguin
+            gameObject.transform.position += Player.transform.forward;
+            gameObject.transform.position += gameObject.transform.up;
+            StartCoroutine("Kick");
+
+        }   
+        else{
+            //Rotate a little bit
+            gameObject.transform.Rotate(new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 5, gameObject.transform.rotation.z), Space.World);
             
-            
-        //Move a little each update given the random direction
-        gameObject.transform.position += gameObject.transform.forward / 15;
+            //Move a little each update given the random direction
+            gameObject.transform.position += gameObject.transform.forward / 15;
+        }
+    }
+
+    IEnumerator Kick(){
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
     }
 
     void Update(){
@@ -38,27 +54,55 @@ public class CirclePenguin : MonoBehaviour
         var xDiff = gameObject.transform.position.x - Player.transform.position.x;
         var zDiff = gameObject.transform.position.z - Player.transform.position.z;
         Distance = Mathf.Pow(Mathf.Pow(xDiff, 2) + Mathf.Pow(zDiff, 2), (float) 0.5);
+        if(Distance > 5){
+            CommandKey.SetActive(false);
+            Command.SetActive(false);
+            Jeff.SetActive(false);
+            Bezos.SetActive(false);
+        }
     }
 
 
     void OnMouseOver(){
         //When within 2 units, show door instructions and allow them to teleport
-        if(Distance < 4){
+        if(Distance < 5){
             //Showing the texts on canvas and changes the text
             Command.GetComponent<Text>().text = "Rescue Penguin";
             CommandKey.GetComponent<Text>().text = "[E]";
             CommandKey.SetActive(true);
             Command.SetActive(true);
+            //Jeff.SetActive(true);
+            //Bezos.SetActive(true);
             if(Input.GetButtonDown("Action") ){
                 Destroy(gameObject);
                 CommandKey.SetActive(false);
                 Command.SetActive(false);
+                Jeff.SetActive(false);
+                Bezos.SetActive(false);
+                Player.SendMessage("SavedPenguin", SendMessageOptions.DontRequireReceiver);
                 //Probably add something here the decreases the meter
             }
+            /*else if(Input.GetButtonDown("JeffBezos")){
+                CommandKey.SetActive(false);
+                Command.SetActive(false);
+                Jeff.SetActive(false);
+                Bezos.SetActive(false);
+                Player.SendMessage("KilledPenguin", SendMessageOptions.DontRequireReceiver);
+                BezosTime = true;
+            }*/
         }
         else{
             CommandKey.SetActive(false);
             Command.SetActive(false);
+            Jeff.SetActive(false);
+            Bezos.SetActive(false);
         }    
+    }
+
+    void OnMouseExit(){
+        CommandKey.SetActive(false);
+        Command.SetActive(false);
+        Jeff.SetActive(false);
+        Bezos.SetActive(false);
     }
 }
