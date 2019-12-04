@@ -105,7 +105,6 @@ public class RandomPenguin : MonoBehaviour
     void OnMouseOver(){
         //When within 2 units, show door instructions and allow them to teleport
         if(Distance < 5){
-            Debug.Log("Within Range");
             //Showing the texts on canvas and changes the text
             Command.GetComponent<Text>().text = "Rescue Penguin";
             CommandKey.GetComponent<Text>().text = "[E]";
