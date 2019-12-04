@@ -11,11 +11,12 @@ public class Flag : MonoBehaviour
     public float Distance;
     public GameObject CommandKey;
     public GameObject Command;
+    public int Karma;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+     Karma = 0;   
     }
 
     // Update is called once per frame
@@ -29,6 +30,7 @@ public class Flag : MonoBehaviour
             CommandKey.SetActive(false);
             Command.SetActive(false);
         }
+        Karma = Player.GetComponent<Player>().Karma;
     }
     void OnMouseOver(){
         //When within 2 units, show door instructions and allow them to teleport
@@ -38,8 +40,11 @@ public class Flag : MonoBehaviour
             CommandKey.GetComponent<Text>().text = "[E]";
             CommandKey.SetActive(true);
             Command.SetActive(true);
-            if(Input.GetButtonDown("Action") ){
+            if(Input.GetButtonDown("Action") && Karma < 300 ){
                 SceneManager.LoadScene("Win");
+            }
+            else if(Input.GetButtonDown("Action") && Karma < 300 ){
+                SceneManager.LoadScene("SpecialWin");
             }
         }
         else{
