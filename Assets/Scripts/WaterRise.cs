@@ -5,17 +5,14 @@ using UnityEngine;
 public class WaterRise : MonoBehaviour
 {
     public GameObject Water;
-    public GameObject Ice;
-    public Animator animator;
+    // public GameObject Ice;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-        int i = 0;
-        while(i < 100)
-        {
-            i++;
-            animator.Play("WaterRise");
-        }
+        animator = Water.GetComponent<Animator>();
+        animator.Play("WaterRise");
+        
     }
 
     // Update is called once per frame

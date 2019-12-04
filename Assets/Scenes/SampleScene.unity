@@ -3074,8 +3074,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Water: {fileID: 2006674329}
-  Ice: {fileID: 910452921}
-  animator: {fileID: 0}
 --- !u!95 &2006674331
 Animator:
   serializedVersion: 3
