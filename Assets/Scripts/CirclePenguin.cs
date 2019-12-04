@@ -15,8 +15,6 @@ public class CirclePenguin : MonoBehaviour
 
     //Used to trigger animations for the pengiun
     private Animator Animator;
-    
-   
 
     // Start is called before the first frame update
     void Start()
@@ -54,21 +52,13 @@ public class CirclePenguin : MonoBehaviour
         var xDiff = gameObject.transform.position.x - Player.transform.position.x;
         var zDiff = gameObject.transform.position.z - Player.transform.position.z;
         Distance = Mathf.Pow(Mathf.Pow(xDiff, 2) + Mathf.Pow(zDiff, 2), (float) 0.5);
-        if(Distance > 5){
-            CommandKey.SetActive(false);
-            Command.SetActive(false);
-            Jeff.SetActive(false);
-            Bezos.SetActive(false);
-        }
     }
 
 
     void OnMouseOver(){
         //When within 2 units, show door instructions and allow them to teleport
-        if(Distance < 5){
+        if(Distance < 10){
             //Showing the texts on canvas and changes the text
-            Command.GetComponent<Text>().text = "Rescue Penguin";
-            CommandKey.GetComponent<Text>().text = "[E]";
             CommandKey.SetActive(true);
             Command.SetActive(true);
             Jeff.SetActive(true);
