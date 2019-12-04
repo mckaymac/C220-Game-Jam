@@ -12,9 +12,6 @@ public class Player : MonoBehaviour
     public GameObject MoneyObject;
     public GameObject KarmaObject;
     public GameObject Water;
-    public GameObject Iceberg;
-    private float icebergZ;
-    private float icebergX;
     public int Karma;
     private int Health;
     private bool Invul = true;
