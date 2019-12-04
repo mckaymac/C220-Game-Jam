@@ -31,8 +31,8 @@ public class SpawnFireballs : MonoBehaviour
 
     void spawnRandomFireball()
     {
-        int randomX = Random.Range(0, range);
-        int randomZ = Random.Range(0, range);
+        int randomX = Random.Range(-range, range);
+        int randomZ = Random.Range(-range, range);
         GameObject fireball = Instantiate(fireballObject, transform.position + new Vector3(randomX, 0, randomZ), Quaternion.identity, transform);
     }
 }
